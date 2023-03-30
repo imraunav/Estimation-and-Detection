@@ -149,8 +149,8 @@ def map_avg(raw):
     
     Returns:
     data, labels'''
-    # df = raw.to_data_frame()
-    # np_array = df.to_numpy()
+    df = raw.to_data_frame()
+    np_array = df.to_numpy()
     # fp1_f7 = np_array[:, 1]
     # f7_t7 = np_array[:, 2]
     # t7_p7 = np_array[:, 3]
@@ -174,6 +174,7 @@ def map_avg(raw):
     # ft9_ft10 = np_array[:, 21]
     # ft10_t8 = np_array[:, 22]
     # avg_ref = np.mean(np_array, axis=0)
-    return mne.set_eeg_reference(raw, ref_channels='average', verbose=True)
-
-    
+    avg_ref = np.sum(np_array, axis=1)/23
+    for i in range(23):
+        np_array[:, i] -= avg_ref
+    return np_array.T, raw.ch_names
