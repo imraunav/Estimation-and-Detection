@@ -1,3 +1,4 @@
 *.csv
 *.edf
 **/.DS_Store
+.venv/
